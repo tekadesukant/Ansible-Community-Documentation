@@ -1,0 +1,8 @@
+- name: Install ELK Stack and Filebeat
+  hosts: localhost
+  become: true
+  roles:
+    - elasticsearch
+    - logstash
+    - kibana
+    - filebeat
