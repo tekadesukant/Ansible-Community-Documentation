@@ -1,0 +1,22 @@
+- name: Install Kibana
+  apt:
+    name: kibana
+    state: present
+    update_cache: yes
+
+- name: Configure Kibana
+  copy:
+    src: kibana.yml
+    dest: /etc/kibana/kibana.yml
+  notify: restart kibana
+
+- name: Enable and start Kibana service
+  systemd:
+    name: kibana
+    enabled: yes
+    state: started
+
+- name: restart kibana
+  systemd:
+    name: kibana
+    state: restarted
