@@ -1,0 +1,22 @@
+- name: Install Filebeat
+  apt:
+    name: filebeat
+    state: present
+    update_cache: yes
+
+- name: Configure Filebeat
+  copy:
+    src: filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+  notify: restart filebeat
+
+- name: Enable and start Filebeat service
+  systemd:
+    name: filebeat
+    enabled: yes
+    state: started
+
+- name: restart filebeat
+  systemd:
+    name: filebeat
+    state: restarted
