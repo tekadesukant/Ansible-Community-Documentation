@@ -1,0 +1,22 @@
+- name: Install Logstash
+  apt:
+    name: logstash
+    state: present
+    update_cache: yes
+
+- name: Configure Logstash
+  copy:
+    src: logstash.yml
+    dest: /etc/logstash/logstash.yml
+  notify: restart logstash
+
+- name: Enable and start Logstash service
+  systemd:
+    name: logstash
+    enabled: yes
+    state: started
+
+- name: restart logstash
+  systemd:
+    name: logstash
+    state: restarted
